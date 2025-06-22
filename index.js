@@ -1,22 +1,20 @@
 const PORT = 8000
 const express = require("express");
 const app = express();
+const mongoose = require("mongoose");
 
-app.get( '/' , (req,res) => {
-    res.send("this is home page")
-})
-
-app.route('/login')
-.get((req,res) => {
-    res.send("this is login page")
-})
+const {connectDB} = require("./connection");
+const loginrouter = require("./routes/login");
+const signupRouter = require("./routes/signup");
 
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
-app.get( '/signup' , (req,res) => {
-    res.send("this is signup page")
-})
+connectDB('mongodb://127.0.0.1:27017/Henosis');
+app.use("/login" , loginrouter);
+app.use("/signup" , signupRouter);
 
 
 app.listen( PORT , () => {
