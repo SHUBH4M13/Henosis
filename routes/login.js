@@ -2,7 +2,7 @@ const express = require("express");
 const loginrouter = express.Router();
 
 loginrouter
-  .route('/login')
+  .route('/')
   .get((req, res) => {
     res.send("this is login page");
   });

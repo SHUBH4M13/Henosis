@@ -1,7 +1,6 @@
 const PORT = 8000
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
 
 const {connectDB} = require("./connection");
 const loginrouter = require("./routes/login");
