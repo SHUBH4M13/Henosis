@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-require("dotenv").config(); // Ensure environment variables are loaded
+require("dotenv").config();
 
 function authenticateJWT(req, res, next) {
     const authHeader = req.headers.authorization; // Format: "Bearer <token>"
@@ -12,7 +12,7 @@ function authenticateJWT(req, res, next) {
                 return res.status(403).json({ msg: "Invalid or expired token" });
             }
 
-            req.user = decoded; // example: { id: "...", iat: ..., exp: ... }
+            req.user = decoded; 
             next();
         });
     } else {

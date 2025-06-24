@@ -18,9 +18,17 @@ const EmployeeSchema = new mongoose.Schema({
       lowercase: true,
       trim: true,
     },
+    bio: {
+      type: String,
+      trim: true,
+    },
     password: {
       type: String,
       required: true, 
+    },
+    profilePic: {
+      data: Buffer,
+      contentType: String
     },
     phoneNo: {
       type: String,
@@ -31,6 +39,13 @@ const EmployeeSchema = new mongoose.Schema({
           enum: ["male" , "female"],
       }
     ],
+    location: {
+      type: String,
+      default: ""
+    },
+    dob: {
+      type: Date,
+    },
     company: {
       type: String,
     },

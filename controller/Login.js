@@ -23,7 +23,7 @@ async function HandleVerifyLogin(req,res){
         return res.status(401).json({ msg: "Wrong password" });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_KEY, {
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY, {
         expiresIn: process.env.JWT_EXPIRES_IN,
     });
 
