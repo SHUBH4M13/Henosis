@@ -34,7 +34,7 @@ const EmployeeSchema = new mongoose.Schema({
     company: {
       type: String,
     },
-    verifed: {
+    verified: {
       type: Boolean,
       default: false,
     },

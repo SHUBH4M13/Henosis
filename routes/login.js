@@ -1,11 +1,10 @@
 const express = require("express");
 const loginrouter = express.Router();
 
+const { HandleVerifyLogin } = require("../controller/Login")
+
 loginrouter
   .route('/')
-  .get((req, res) => {
-    res.send("this is login page");
-  });
-
+  .post(HandleVerifyLogin)
 
 module.exports = loginrouter;

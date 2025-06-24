@@ -72,7 +72,7 @@ async function HandleVerifyOtp(req, res) {
             await OTPVerify.deleteMany({ userId: emp_id });
             return res.status(400).json({ error: "OTP has expired" });
         }
-
+        
         const isMatch = await bcrypt.compare(otp, otpRecord.otp);
         if (!isMatch) {
             return res.status(400).json({ error: "Invalid OTP" });
@@ -82,7 +82,7 @@ async function HandleVerifyOtp(req, res) {
         await OTPVerify.deleteMany({ userId: emp_id });
         
         // Optional: Mark user as verified
-        await Employee.findByIdAndUpdate(emp_id, { verifed: true });
+        await Employee.findByIdAndUpdate(emp_id, { verified: true });
         
         return res.status(200).json({ 
             message: "OTP verified successfully", 

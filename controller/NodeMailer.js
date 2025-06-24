@@ -21,7 +21,7 @@ function sendMail(to, GeneratedOTP) {
     </head>
     <body style="margin:0; padding:0; background-color:#0b0b0b; font-family:'Segoe UI', sans-serif; color:#ffffff;">
       <div style="max-width:600px; margin:0 auto; padding:40px 24px;">
-       <h1 style="font-size:36px; font-weight:700; text-align:center; margin-bottom:10px; background: linear-gradient(to right, #fd9a00, #ffcc70); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">
+       <h1 style="font-size:36px; font-weight:700; text-align:center; margin-bottom:10px; -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">
           Confirm Your Identity
         </h1>
         <p style="text-align:center; font-size:16px; color:#bbbbbb; margin-top:10px; margin-bottom:30px;">
