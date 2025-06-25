@@ -6,8 +6,20 @@ const upload = multer({ storage: storage });
 
 async function HandleEdit(req,res){
       try {
-        const _id = req.user.user_id;
-        const employee = await Employee.findById(_id);
+        const requestedUserId = req.params.user_id;
+        const authenticatedUserId = req.user._id; // JWT contains _id as per login controller
+        
+        // Validate the user_id parameter
+        if (!requestedUserId) {
+          return res.status(400).json({ msg: "User ID is required" });
+        }
+
+        // Check if the authenticated user is editing their own profile
+        if (requestedUserId !== authenticatedUserId) {
+          return res.status(403).json({ msg: "Access denied. You can only edit your own profile." });
+        }
+
+        const employee = await Employee.findById(requestedUserId);
   
         if (!employee) {
           return res.status(404).json({ msg: "User not found" });
@@ -44,22 +56,53 @@ async function HandleEdit(req,res){
   
         await employee.save();
   
-        return res.json({ msg: "Profile updated successfully", user: employee });
+        return res.json({ 
+          success: true,
+          msg: "Profile updated successfully", 
+          user: employee 
+        });
       } catch (err) {
         console.error("Profile update failed:", err);
+        
+        // Handle invalid ObjectId format
+        if (err.name === 'CastError') {
+          return res.status(400).json({ msg: "Invalid user ID format" });
+        }
+        
         res.status(500).json({ msg: "Internal Server Error" });
       }
     }
 
-async function HandleGetUser(req,res){
-    try {
-        
-    } catch (error) {
-        
+
+async function HandleGetProfile(req, res) {
+  try {
+    const requestedUserId = req.params.user_id;
+    
+    if (!requestedUserId) {
+      return res.status(400).json({ msg: "User ID is required" });
     }
+
+    const user = await Employee.findById(requestedUserId).select('-password'); // Exclude password from response
+    
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    res.status(200).json({ 
+      success: true,
+      user 
+    });
+  } catch (err) {
+    console.error("Error fetching user profile:", err);
+    
+    if (err.name === 'CastError') {
+      return res.status(400).json({ msg: "Invalid user ID format" });
+    } 
+    res.status(500).json({ msg: "Internal Server Error" });
+  }
 }
 
 module.exports = {
     HandleEdit,
-    HandleGetUser
+    HandleGetProfile
 }

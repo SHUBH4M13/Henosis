@@ -33,12 +33,10 @@ const EmployeeSchema = new mongoose.Schema({
     phoneNo: {
       type: String,
     },
-    gender: [
-      {
-          type: [String],
-          enum: ["male" , "female"],
-      }
-    ],
+    gender: {
+        type: String,
+        enum: ["male", "female"],
+    },
     location: {
       type: String,
       default: ""
