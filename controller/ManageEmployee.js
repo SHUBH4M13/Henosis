@@ -27,10 +27,29 @@ async function GetSpecficUser(req, res) {
       console.error("Error:", error);
       return res.status(500).json({ msg: "Server error" });
     }
+}
+
+async function AddUser(req, res) {
+  try {
+    // // const id = req.user_id;
+    // // const employee = await Employee.findById(id); 
+    // const allowedRoles = ['HR' , 'Admin' , 'Manager'];
+    // // if ( !employee.roles.some(role => allowedRoles.includes(role)) ) {
+    // //   return res.status(401).json({ msg: "not authorized roles to add user" });
+    // // }
+    const {email , firstname  ,  password } = req.body
+    const res = await Employee.create(req.body)
+    SendWelcomeMail( email , firstname , email , password)
+    return res.status(201).json({msg: "Success"}); 
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({ msg: "Server error" });
   }
+}
   
 
 module.exports = {
     GetAllEmployees,
-    GetSpecficUser
+    GetSpecficUser,
+    AddUser
 }

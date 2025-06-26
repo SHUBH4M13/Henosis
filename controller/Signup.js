@@ -2,7 +2,7 @@ const Employee = require("../models/Employee");
 const OTPVerify = require("../models/OTPVerification");
 
 const bcrypt = require("bcrypt")
-const {sendMail} = require("../controller/NodeMailer")
+const {sendMailOTP} = require("../controller/NodeMailer")
 
 async function HandleCreateUser(req,res){
     const body = req.body;
@@ -30,7 +30,7 @@ async function HandleCreateUser(req,res){
 async function SendGenerateOTP({ mailToBeVerifed }) {
     try {
         const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
-        await sendMail(mailToBeVerifed, otp);
+        await sendMailOTP(mailToBeVerifed, otp);
 
         const hashedOTP = await bcrypt.hash(otp, 10);
         const employee = await Employee.findOne({ email: mailToBeVerifed });
