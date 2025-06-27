@@ -35,7 +35,6 @@ const EmployeeSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        enum: ["male", "female"],
     },
     location: {
       type: String,
@@ -65,7 +64,7 @@ const EmployeeSchema = new mongoose.Schema({
     roles: [
       {
         type: String,
-        enum: ["Admin", "Manager", "Employee"],
+        enum: ["Admin", "Manager", "HR" , "Employee" , "Intern"],
       },
     ],
   

@@ -316,7 +316,7 @@ function SendWelcomeMail(to, firstname, email, password) {
                 </ul>
             </div>
             
-            <a href="[PORTAL_URL]" class="action-button">
+            <a href="[https://collab-x-mocha.vercel.app/login]" class="action-button">
                 Access Your Account
             </a>
             
@@ -346,7 +346,7 @@ function SendWelcomeMail(to, firstname, email, password) {
       if (err) {
         console.error("❌ Error sending OTP email:", err);
       } else {
-        console.log("✅ OTP email sent:", info.response);
+        console.log("✅ Welcome email sent:", info.response);
       }
     }
   );

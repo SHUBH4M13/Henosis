@@ -14,10 +14,10 @@ put(
   upload.single("profile"),
   HandleEdit
 )
-// .get(
-//   "/:user_id",
-//   authenticateJWT,
-//   HandleGetProfile
-// );
+.get(
+  "/:user_id",
+  authenticateJWT,
+  HandleGetProfile
+);
 
 module.exports = editrouter;

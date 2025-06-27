@@ -1,4 +1,5 @@
 const Employee = require("../models/Employee")
+const {SendWelcomeMail} = require('../controller/NodeMailer')
 
 async function GetAllEmployees(req,res){
     try {        
@@ -37,9 +38,9 @@ async function AddUser(req, res) {
     // // if ( !employee.roles.some(role => allowedRoles.includes(role)) ) {
     // //   return res.status(401).json({ msg: "not authorized roles to add user" });
     // // }
-    const {email , firstname  ,  password } = req.body
-    const res = await Employee.create(req.body)
-    SendWelcomeMail( email , firstname , email , password)
+    const {email , firstName  ,  password } = req.body
+    const mails = await Employee.create(req.body)
+    SendWelcomeMail( email , firstName , email , password)
     return res.status(201).json({msg: "Success"}); 
   } catch (error) {
     console.error("Error:", error);
