@@ -58,7 +58,7 @@ const EmployeeSchema = new mongoose.Schema({
     friends: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "Employee",
       },
     ],
     roles: [

@@ -11,7 +11,6 @@ function authenticateJWT(req, res, next) {
             if (err) {
                 return res.status(403).json({ msg: "Invalid or expired token" });
             }
-
             req.user = decoded; 
             next();
         });
