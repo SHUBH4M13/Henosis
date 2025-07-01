@@ -30,14 +30,17 @@ async function GetSpecficUser(req, res) {
   }
 }
 
-async function GetUserRoles(req, res) {
-  try { 
-    const _id = req.user._id;
-    const user = await Employee.findById(_id).select('roles projects');
-    if (!user) {
+async function GetUserByToken(req, res) {
+  try {
+    console.log("Decoded JWT payload:", req.user);
+    const id = req.user._id;
+    console.log("Looking up Employee with _id:", id);
+    const employee = await Employee.findById(id).select('-password');
+
+    if (!employee) {
       return res.status(404).json({ msg: "User not found" });
     }
-    return res.status(200).json(user);
+    return res.status(200).json(employee);
   } catch (error) {
     console.error("Error:", error);
     return res.status(500).json({ msg: "Server error" });
@@ -62,9 +65,38 @@ async function AddUser(req, res) {
   }
 }
 
+async function HandleGetManagers(req,res){
+  try{
+      const roles = ['manager'];
+      const data = await Employee.find({
+      roles: { $in: roles }
+      });
+      return res.status(201).json(data);
+  } catch(err){
+      console.log("error" , err);
+      return res.status(400).json({msg : "error"})
+  } 
+}
+
+async function HandleGetEmployees(req,res){
+  try{
+      const roles = ['employee'];
+      const data = await Employee.find({
+      roles: { $in: roles }
+      });
+      return res.status(201).json(data);
+  } catch(err){
+      console.log("error" , err);
+      return res.status(400).json({msg : "error"})
+  } 
+}
+
+
 module.exports = {
   GetAllEmployees,
+  HandleGetManagers,
+  HandleGetEmployees,
   GetSpecficUser,
   AddUser,
-  GetUserRoles,
+  GetUserByToken,
 };

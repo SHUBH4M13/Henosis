@@ -52,7 +52,8 @@ const EmployeeSchema = new mongoose.Schema({
     },
     projects: [
       {
-          type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "project",
       },
     ],
     friends: [

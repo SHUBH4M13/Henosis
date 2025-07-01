@@ -1,10 +1,11 @@
 const express = require("express");
-const { GetAllEmployees , AddUser , GetUserRoles} = require("../controller/ManageEmployee")
+const { GetAllEmployees , AddUser , GetUserByToken , GetSpecficUser} = require("../controller/ManageEmployee")
 const authenticateJWT = require("../Middleware/auth")
 const dashboardrouter = express.Router();
 
 dashboardrouter.get("/employees" , authenticateJWT , GetAllEmployees);
-dashboardrouter.get( "/" , authenticateJWT , GetUserRoles);
 dashboardrouter.post("/employees/add" , AddUser);
+dashboardrouter.get("/" , authenticateJWT , GetUserByToken );
 
-module.exports = dashboardrouter
+
+module.exports = dashboardrouter;
