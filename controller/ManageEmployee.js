@@ -32,11 +32,8 @@ async function GetSpecficUser(req, res) {
 
 async function GetUserByToken(req, res) {
   try {
-    console.log("Decoded JWT payload:", req.user);
     const id = req.user._id;
-    console.log("Looking up Employee with _id:", id);
     const employee = await Employee.findById(id).select('-password');
-
     if (!employee) {
       return res.status(404).json({ msg: "User not found" });
     }
@@ -49,12 +46,12 @@ async function GetUserByToken(req, res) {
 
 async function AddUser(req, res) {
   try {
-    // // const id = req.user_id;
-    // // const employee = await Employee.findById(id);
-    // const allowedRoles = ['HR' , 'Admin' , 'Manager'];
-    // // if ( !employee.roles.some(role => allowedRoles.includes(role)) ) {
-    // //   return res.status(401).json({ msg: "not authorized roles to add user" });
-    // // }
+    const id = req.user_id;
+    const employee = await Employee.findById(id);
+    const allowedRoles = ['HR' , 'Admin' , 'Manager'];
+    if ( !employee.roles.some(role => allowedRoles.includes(role)) ) {
+      return res.status(401).json({ msg: "not authorized roles to add user" });
+    }
     const { email, firstName, password } = req.body;
     const mails = await Employee.create(req.body);
     SendWelcomeMail(email, firstName, email, password);

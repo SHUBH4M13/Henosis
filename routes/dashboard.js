@@ -5,7 +5,7 @@ const dashboardrouter = express.Router();
 
 dashboardrouter.get("/employees" , authenticateJWT , GetAllEmployees);
 dashboardrouter.post("/employees/add" , AddUser);
-dashboardrouter.get("/" , authenticateJWT , GetUserByToken );
+dashboardrouter.get("/getinfo" , authenticateJWT , GetUserByToken );
 
 
 module.exports = dashboardrouter;
